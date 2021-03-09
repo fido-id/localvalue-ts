@@ -1,3 +1,10 @@
+# [1.1.0-beta.2](https://github.com/fido-id/localvalue-ts/compare/v1.1.0-beta.1...v1.1.0-beta.2) (2021-03-09)
+
+
+### Features
+
+* export usefult type constructors ([135f708](https://github.com/fido-id/localvalue-ts/commit/135f708c0ebcc5f43434550cf3134493eb8143f5))
+
 # [1.1.0-beta.1](https://github.com/fido-id/localvalue-ts/compare/v1.0.0...v1.1.0-beta.1) (2021-03-09)
 
 

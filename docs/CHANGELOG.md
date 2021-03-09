@@ -1,3 +1,10 @@
+# [1.1.0-beta.5](https://github.com/fido-id/localvalue-ts/compare/v1.1.0-beta.4...v1.1.0-beta.5) (2021-03-09)
+
+
+### Bug Fixes
+
+* return type of storage-instance type constructor ([536c332](https://github.com/fido-id/localvalue-ts/commit/536c33215dfd9ffb5429d592ddc16821520052ad))
+
 # [1.1.0-beta.4](https://github.com/fido-id/localvalue-ts/compare/v1.1.0-beta.3...v1.1.0-beta.4) (2021-03-09)
 
 # [1.1.0-beta.3](https://github.com/fido-id/localvalue-ts/compare/v1.1.0-beta.2...v1.1.0-beta.3) (2021-03-09)

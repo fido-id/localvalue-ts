@@ -1,5 +1,5 @@
 {
-  "repositoryUrl": "git@github.com:fido-id/react-localstorage-ts.git",
+  "repositoryUrl": "git@github.com:fido-id/localstorage-ts.git",
   "branches": [
     {"name": "master"},
     {"name": "alpha", "channel": "alpha", "prerelease": true},

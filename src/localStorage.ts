@@ -65,8 +65,8 @@ export type StorageDef<K extends string> = {
 type StorageInstance<S> = S extends StorageDef<infer K>
   ? {
       [k in K]: {
-        getValue: () => LocalValue<errorType<S[K]>, runtimeType<S[K]>>
-        setValue: (v: runtimeType<S[K]>) => void
+        getValue: () => LocalValue<errorType<S[k]>, runtimeType<S[k]>>
+        setValue: (v: runtimeType<S[k]>) => void
         removeValue: () => void
       }
     }

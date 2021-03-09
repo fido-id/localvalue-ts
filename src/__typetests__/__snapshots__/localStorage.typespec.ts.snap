@@ -47,6 +47,10 @@ exports[`You cannot pass an invalid set of options to store (type) should match 
   Object literal may only specify known properties, and 'fo' does not exist in type 'Partial<{ foo: { s: string; d: Date; }; }>'."
 `;
 
-exports[`store returns the correct type encoding (type) should match snapshot 1`] = `"{ foo: { getValue: () => LocalValue<Errors, { s: string; d: Date; }>; setValue: (v: { s: string; d: Date; }) => void; removeValue: () => void; }; }"`;
+exports[`store returns the correct type encoding (type) should match snapshot 1`] = `"{ foo: { getValue: () => LocalValue<Errors, { s: string; d: Date; }>; setValue: (v: { s: string; d: Date; }) => void; removeValue: () => void; }; union: { getValue: () => LocalValue<Errors, \\"foo\\" | \\"baz\\">; setValue: (v: \\"foo\\" | \\"baz\\") => void; removeValue: () => void; }; }"`;
 
-exports[`storeWithOptions returns the correct type encoding (type) should match snapshot 1`] = `"{ foo: { getValue: () => LocalValue<Errors, { s: string; d: Date; }>; setValue: (v: { s: string; d: Date; }) => void; removeValue: () => void; }; }"`;
+exports[`store returns the correct type encoding (type) should match snapshot 2`] = `"LocalValue<Errors, \\"foo\\" | \\"baz\\">"`;
+
+exports[`storeWithOptions returns the correct type encoding (type) should match snapshot 1`] = `"{ foo: { getValue: () => LocalValue<Errors, { s: string; d: Date; }>; setValue: (v: { s: string; d: Date; }) => void; removeValue: () => void; }; union: { getValue: () => LocalValue<Errors, \\"foo\\" | \\"baz\\">; setValue: (v: \\"foo\\" | \\"baz\\") => void; removeValue: () => void; }; }"`;
+
+exports[`storeWithOptions returns the correct type encoding (type) should match snapshot 2`] = `"LocalValue<Errors, \\"foo\\" | \\"baz\\">"`;

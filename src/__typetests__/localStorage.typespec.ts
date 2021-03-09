@@ -68,9 +68,13 @@ removeLocalValue("shape", {
   useMemorySore: "false",
 })
 
+export const UnionCodec = t.union([t.literal("foo"), t.literal("baz")])
+const CorrectUnionCodec = fromIoTsCodec(UnionCodec)
+
 const store = createLocalStorage({
   // @dts-jest:pass:snap It works with string encoding
   foo: CorrectCodec,
+  union: CorrectUnionCodec,
 })
 
 createLocalStorage({
@@ -81,6 +85,7 @@ createLocalStorage({
 const storeWithOptions = createLocalStorage(
   {
     foo: CorrectCodec,
+    union: CorrectUnionCodec,
   },
   // @dts-jest:pass:snap You can pass a valid set of options to store
   { useMemorySore: true, defaultValues: { foo: defaultShape } },
@@ -97,5 +102,11 @@ createLocalStorage(
 // @dts-jest:pass:snap store returns the correct type encoding
 store
 
+// @dts-jest:pass:snap store returns the correct type encoding
+store.union.getValue()
+
 // @dts-jest:pass:snap storeWithOptions returns the correct type encoding
 storeWithOptions
+
+// @dts-jest:pass:snap storeWithOptions returns the correct type encoding
+storeWithOptions.union.getValue()

@@ -1,3 +1,5 @@
+# [1.1.0-beta.4](https://github.com/fido-id/localvalue-ts/compare/v1.1.0-beta.3...v1.1.0-beta.4) (2021-03-09)
+
 # [1.1.0-beta.3](https://github.com/fido-id/localvalue-ts/compare/v1.1.0-beta.2...v1.1.0-beta.3) (2021-03-09)
 
 

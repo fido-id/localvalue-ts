@@ -1,3 +1,10 @@
+# [1.1.0-beta.1](https://github.com/fido-id/localvalue-ts/compare/v1.0.0...v1.1.0-beta.1) (2021-03-09)
+
+
+### Features
+
+* add create-store util ([de9cff9](https://github.com/fido-id/localvalue-ts/commit/de9cff97079d3f7483ddadda6f8cb4e585c8b013))
+
 # 1.0.0 (2021-03-09)
 
 

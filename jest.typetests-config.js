@@ -7,6 +7,6 @@ module.exports = {
   },
   transform: { "^.+typespec\\.ts$": "dts-jest/transform" },
   testMatch: ["**/+(*.)*(typespec).ts"],
-  name: "react-localstorage-ts",
-  displayName: "react-localstorage-ts",
+  name: "localvalue-ts",
+  displayName: "localvalue-ts",
 }

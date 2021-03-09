@@ -1,10 +1,6 @@
 import * as t from "io-ts"
 import { DateFromISOString } from "io-ts-types"
-import {
-  setLocalElement,
-  getLocalElement,
-  removeLocalElement,
-} from "../localStorage"
+import { setLocalValue, getLocalValue, removeLocalValue } from "../localStorage"
 import { fromIoTsCodec } from "../io-ts"
 import * as LV from "../LocalValue"
 
@@ -26,13 +22,13 @@ afterEach(() => {
 
 describe("setLocalElement", () => {
   it("should set values correctly", () => {
-    setLocalElement(localStorageKey, CorrectCodec, defaultShape)
+    setLocalValue(localStorageKey, CorrectCodec, defaultShape)
 
     expect(localStorage.getItem(localStorageKey)).toBe(
       CorrectCodec.encode(defaultShape),
     )
 
-    setLocalElement(localStorageKey, CorrectCodec, {
+    setLocalValue(localStorageKey, CorrectCodec, {
       ...defaultShape,
       s: "baz",
     })
@@ -46,7 +42,7 @@ describe("setLocalElement", () => {
   })
 
   it("does not write on localStorage when useMemorySore=true", () => {
-    setLocalElement(localStorageKey, CorrectCodec, defaultShape, {
+    setLocalValue(localStorageKey, CorrectCodec, defaultShape, {
       useMemorySore: true,
     })
 
@@ -58,7 +54,7 @@ describe("getLocalElement", () => {
   it("should get values correctly", () => {
     localStorage.setItem(localStorageKey, CorrectCodec.encode(defaultShape))
 
-    expect(getLocalElement(localStorageKey, CorrectCodec)).toEqual(
+    expect(getLocalValue(localStorageKey, CorrectCodec)).toEqual(
       LV.valid(defaultShape),
     )
   })
@@ -67,19 +63,19 @@ describe("getLocalElement", () => {
     const defaultValue = { s: "foo", d: new Date(1650732800 * 1000) }
 
     expect(
-      getLocalElement(localStorageKey, CorrectCodec, {
+      getLocalValue(localStorageKey, CorrectCodec, {
         defaultValue,
       }),
     ).toEqual(LV.valid(defaultValue))
   })
 
   it("reads memory store when useMemoryStore=true", () => {
-    setLocalElement(localStorageKey, CorrectCodec, defaultShape, {
+    setLocalValue(localStorageKey, CorrectCodec, defaultShape, {
       useMemorySore: true,
     })
 
     expect(
-      getLocalElement(localStorageKey, CorrectCodec, {
+      getLocalValue(localStorageKey, CorrectCodec, {
         useMemorySore: true,
       }),
     ).toEqual(LV.valid(defaultShape))
@@ -94,7 +90,7 @@ describe("removeLocalElement", () => {
       CorrectCodec.encode(defaultShape),
     )
 
-    removeLocalElement(localStorageKey)
+    removeLocalValue(localStorageKey)
 
     expect(localStorage.getItem(localStorageKey)).toBeNull()
   })
@@ -106,22 +102,22 @@ describe("removeLocalElement", () => {
       CorrectCodec.encode(defaultShape),
     )
 
-    removeLocalElement(localStorageKey)
+    removeLocalValue(localStorageKey)
 
-    removeLocalElement(localStorageKey)
+    removeLocalValue(localStorageKey)
 
     expect(localStorage.getItem(localStorageKey)).toBeNull()
   })
 
   it("act on memory store when useMemorySore=true", () => {
-    setLocalElement(localStorageKey, CorrectCodec, defaultShape, {
+    setLocalValue(localStorageKey, CorrectCodec, defaultShape, {
       useMemorySore: true,
     })
 
-    removeLocalElement(localStorageKey, { useMemorySore: true })
+    removeLocalValue(localStorageKey, { useMemorySore: true })
 
     expect(
-      getLocalElement(localStorageKey, CorrectCodec, {
+      getLocalValue(localStorageKey, CorrectCodec, {
         useMemorySore: true,
       }),
     ).toEqual(LV.absent)

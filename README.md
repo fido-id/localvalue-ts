@@ -1,25 +1,25 @@
-![release](https://github.com/fido-id/localstorage-ts/actions/workflows/release.yml/badge.svg)
+![release](https://github.com/fido-id/localvalue-ts/actions/workflows/release.yml/badge.svg)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 
-# localstorage-ts
+# localvalue-ts
 
 A small layer over the browser's localstorage, fallbacks to an in-memory store if localstorage is not supported by the browser.
 
-Built on with `fp-ts` in mind, `localstorage-ts` gives you a standard way to access objects stored locally.
+Built on with `fp-ts` in mind, `localvalue-ts` gives you a standard way to access objects stored locally.
 
 ## install
 
 ### yarn
 
 ```shell
-yarn add localstorage-ts
+yarn add localvalue-ts
 ```
 
 ### npm
 
 ```shell
-npm install -S localstorage-ts
+npm install -S localvalue-ts
 ```
 
 ## quick start
@@ -31,7 +31,7 @@ First create you codecs:
 ```tsx
 // codecs.ts
 import * as t from "io-ts"
-import { fromIoTsCodec } from "localstorage-ts/io-ts"
+import { fromIoTsCodec } from "localvalue-ts/io-ts"
 
 const ThemeFlavourC = t.union([t.literal("dark"), t.literal("light")])
 
@@ -43,15 +43,11 @@ then you use them in your code:
 ```tsx
 // App.tsx
 import { ThemeFlavour } from "./codecs.ts"
-import {
-  getLocalElement,
-  removeLocalElement,
-  setLocalElement,
-} from "localstorage-ts/localStorage"
-import * as LV from "localstorage-ts/LocalValue"
+import { getLocalValue } from "localvalue-ts/localStorage"
+import * as LV from "localvalue-ts/LocalValue"
 
 const App = () => {
-  const myLocalValue = getLocalElement("themeFlavour", ThemeFlavour, {
+  const myLocalValue = getLocalValue("themeFlavour", ThemeFlavour, {
     defaultValue: "light",
   })
 

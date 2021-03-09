@@ -1,11 +1,7 @@
 import * as t from "io-ts"
 import { DateFromISOString } from "io-ts-types"
 import { fromIoTsCodec } from "../io-ts"
-import {
-  getLocalElement,
-  removeLocalElement,
-  setLocalElement,
-} from "../localStorage"
+import { getLocalValue, removeLocalValue, setLocalValue } from "../localStorage"
 
 const ShapeCodec = t.type({ s: t.string, d: DateFromISOString })
 type ShapeCodec = t.TypeOf<typeof ShapeCodec>
@@ -18,51 +14,51 @@ export const defaultShape: ShapeCodec = {
 }
 
 // @dts-jest:pass:snap It works with string encoding
-getLocalElement("sape", CorrectCodec)
+getLocalValue("sape", CorrectCodec)
 
 // @dts-jest:fail:snap It doesn't work with non-string encoding
-getLocalElement("shape", ShapeCodec)
+getLocalValue("shape", ShapeCodec)
 
 // @dts-jest:pass:snap You can pass a valid set of options
-getLocalElement("sape", CorrectCodec, {
+getLocalValue("sape", CorrectCodec, {
   defaultValue: { s: "foo", d: new Date() },
   useMemorySore: false,
 })
 
-getLocalElement("sape", CorrectCodec, {
+getLocalValue("sape", CorrectCodec, {
   // @dts-jest:fail:snap You cannot pass an invalid set of options
   defaultValue: { foo: 123 },
   useMemorySore: false,
 })
 
 // @dts-jest:pass:snap It works with string encoding
-setLocalElement("sape", CorrectCodec, defaultShape)
+setLocalValue("sape", CorrectCodec, defaultShape)
 
 // @dts-jest:fail:snap It doesn't work with non-string encoding
-setLocalElement("shape", ShapeCodec, defaultShape)
+setLocalValue("shape", ShapeCodec, defaultShape)
 
 // @dts-jest:pass:snap You can pass a valid set of options
-setLocalElement("shape", CorrectCodec, defaultShape, {
+setLocalValue("shape", CorrectCodec, defaultShape, {
   defaultValue: { s: "foo", d: new Date() },
   useMemorySore: false,
 })
 
-setLocalElement("shape", CorrectCodec, defaultShape, {
+setLocalValue("shape", CorrectCodec, defaultShape, {
   // @dts-jest:fail:snap You cannot pass an invalid set of options
   defaultValue: { foo: 123 },
   useMemorySore: false,
 })
 
 // @dts-jest:pass:snap It works with any string
-removeLocalElement("shape")
+removeLocalValue("shape")
 
 // @dts-jest:pass:snap You can pass a valid set of options
-removeLocalElement("shape", {
+removeLocalValue("shape", {
   defaultValue: { s: "foo", d: new Date() },
   useMemorySore: false,
 })
 
-removeLocalElement("shape", {
+removeLocalValue("shape", {
   // @dts-jest:fail:snap You cannot pass an invalid set of options
   useMemorySore: "false",
 })

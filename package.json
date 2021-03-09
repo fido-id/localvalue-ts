@@ -1,5 +1,5 @@
 {
-  "name": "localstorage-ts",
+  "name": "localvalue-ts",
   "version": "1.0.0",
   "description": "A small library to wrap browser's localstorage in a functional fashion.",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/fido-id/localstorage-ts.git"
+    "url": "https://github.com/fido-id/localvalue-ts.git"
   },
   "author": "fes300",
   "license": "MIT",

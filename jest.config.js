@@ -9,6 +9,6 @@ module.exports = {
     "^.+\\.tsx?$": "ts-jest",
   },
   moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
-  name: "react-localstorage-ts",
-  displayName: "react-localstorage-ts",
+  name: "localvalue-ts",
+  displayName: "localvalue-ts",
 }

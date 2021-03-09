@@ -15,7 +15,7 @@ export interface LocalItemOptions<A> {
 const getStore = <O extends LocalItemOptions<any>>(o?: O) =>
   o?.useMemorySore ?? false ? memoryStore : localStorageProxy
 
-export const getLocalElement = <E, A>(
+export const getLocalValue = <E, A>(
   t: string,
   codec: Codec<E, string, A>,
   options?: LocalItemOptions<A>,
@@ -33,7 +33,7 @@ export const getLocalElement = <E, A>(
     : storedValue
 }
 
-export const setLocalElement = <E, A>(
+export const setLocalValue = <E, A>(
   t: string,
   codec: Codec<E, string, A>,
   v: A,
@@ -44,7 +44,7 @@ export const setLocalElement = <E, A>(
   store.setItem(t, codec.encode(v))
 }
 
-export const removeLocalElement = (
+export const removeLocalValue = (
   t: string,
   options?: LocalItemOptions<any>,
 ): void => {

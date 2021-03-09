@@ -8,17 +8,27 @@ exports[`It doesn't work with non-string encoding (type) should match snapshot 1
 
 exports[`It doesn't work with non-string encoding (type) should match snapshot 2`] = `"Argument of type 'TypeC<{ s: StringC; d: DateFromISOStringC; }>' is not assignable to parameter of type 'Codec<unknown, string, { s: string; d: Date; }>'."`;
 
+exports[`It doesn't work with non-string encoding (type) should match snapshot 3`] = `
+"Type 'TypeC<{ s: StringC; d: DateFromISOStringC; }>' is not assignable to type 'Codec<any, string, any>'.
+  The types returned by 'encode(...)' are incompatible between these types.
+    Type '{ s: string; d: string; }' is not assignable to type 'string'."
+`;
+
 exports[`It works with any string (type) should match snapshot 1`] = `"void"`;
 
 exports[`It works with string encoding (type) should match snapshot 1`] = `"LocalValue<Errors, { s: string; d: Date; }>"`;
 
 exports[`It works with string encoding (type) should match snapshot 2`] = `"void"`;
 
+exports[`It works with string encoding (type) should match snapshot 3`] = `"Codec<Errors, string, { s: string; d: Date; }>"`;
+
 exports[`You can pass a valid set of options (type) should match snapshot 1`] = `"LocalValue<Errors, { s: string; d: Date; }>"`;
 
 exports[`You can pass a valid set of options (type) should match snapshot 2`] = `"void"`;
 
 exports[`You can pass a valid set of options (type) should match snapshot 3`] = `"void"`;
+
+exports[`You can pass a valid set of options to store (type) should match snapshot 1`] = `"any"`;
 
 exports[`You cannot pass an invalid set of options (type) should match snapshot 1`] = `
 "Type '{ foo: number; }' is not assignable to type '{ s: string; d: Date; }'.
@@ -31,3 +41,12 @@ exports[`You cannot pass an invalid set of options (type) should match snapshot 
 `;
 
 exports[`You cannot pass an invalid set of options (type) should match snapshot 3`] = `"Type 'string' is not assignable to type 'boolean'."`;
+
+exports[`You cannot pass an invalid set of options to store (type) should match snapshot 1`] = `
+"Type '{ fo: { s: string; d: Date; }; }' is not assignable to type '{ foo: { s: string; d: Date; }; }'.
+  Object literal may only specify known properties, and 'fo' does not exist in type '{ foo: { s: string; d: Date; }; }'."
+`;
+
+exports[`store returns the correct type encoding (type) should match snapshot 1`] = `"{ foo: { getValue: () => LocalValue<Errors, { s: string; d: Date; }>; setValue: (v: { s: string; d: Date; }) => void; removeValue: () => void; }; }"`;
+
+exports[`storeWithOptions returns the correct type encoding (type) should match snapshot 1`] = `"{ foo: { getValue: () => LocalValue<Errors, { s: string; d: Date; }>; setValue: (v: { s: string; d: Date; }) => void; removeValue: () => void; }; }"`;

@@ -1,6 +1,11 @@
 import * as t from "io-ts"
 import { DateFromISOString } from "io-ts-types"
-import { setLocalValue, getLocalValue, removeLocalValue } from "../localStorage"
+import {
+  setLocalValue,
+  getLocalValue,
+  removeLocalValue,
+  createLocalStorage,
+} from "../localStorage"
 import { fromIoTsCodec } from "../io-ts"
 import * as LV from "../LocalValue"
 
@@ -109,7 +114,7 @@ describe("removeLocalElement", () => {
     expect(localStorage.getItem(localStorageKey)).toBeNull()
   })
 
-  it("act on memory store when useMemorySore=true", () => {
+  it("acts on memory store when useMemorySore=true", () => {
     setLocalValue(localStorageKey, CorrectCodec, defaultShape, {
       useMemorySore: true,
     })
@@ -121,5 +126,136 @@ describe("removeLocalElement", () => {
         useMemorySore: true,
       }),
     ).toEqual(LV.absent)
+  })
+})
+
+describe("createLocalStorage", () => {
+  const store = createLocalStorage({
+    [localStorageKey]: CorrectCodec,
+  })
+
+  describe("setValues", () => {
+    it("should set values correctly", () => {
+      store.shape.setValue(defaultShape)
+
+      expect(localStorage.getItem(localStorageKey)).toBe(
+        CorrectCodec.encode(defaultShape),
+      )
+
+      store.shape.setValue({
+        ...defaultShape,
+        s: "baz",
+      })
+
+      expect(localStorage.getItem(localStorageKey)).toBe(
+        CorrectCodec.encode({
+          ...defaultShape,
+          s: "baz",
+        }),
+      )
+    })
+
+    it("does not write on localStorage when useMemorySore=true", () => {
+      const store = createLocalStorage(
+        {
+          [localStorageKey]: CorrectCodec,
+        },
+        {
+          useMemorySore: true,
+        },
+      )
+
+      store.shape.setValue(defaultShape)
+
+      expect(localStorage.getItem(localStorageKey)).toBeNull()
+    })
+  })
+
+  describe("getValues", () => {
+    it("should get values correctly", () => {
+      const store = createLocalStorage({
+        [localStorageKey]: CorrectCodec,
+      })
+
+      localStorage.setItem(localStorageKey, CorrectCodec.encode(defaultShape))
+
+      expect(store.shape.getValue()).toEqual(LV.valid(defaultShape))
+    })
+
+    it("returns default value when none is specified", () => {
+      const defaultValue = { s: "foo", d: new Date(1650732800 * 1000) }
+      const store = createLocalStorage(
+        {
+          [localStorageKey]: CorrectCodec,
+        },
+        { defaultValues: { [localStorageKey]: defaultValue } },
+      )
+      expect(store.shape.getValue()).toEqual(LV.valid(defaultValue))
+    })
+
+    it("reads memory store when useMemoryStore=true", () => {
+      setLocalValue(localStorageKey, CorrectCodec, defaultShape, {
+        useMemorySore: true,
+      })
+      const store = createLocalStorage(
+        {
+          [localStorageKey]: CorrectCodec,
+        },
+        { useMemorySore: true },
+      )
+
+      expect(store.shape.getValue()).toEqual(LV.valid(defaultShape))
+    })
+  })
+
+  describe("removeValues", () => {
+    it("should remove values correctly", () => {
+      const store = createLocalStorage({
+        [localStorageKey]: CorrectCodec,
+      })
+
+      localStorage.setItem(localStorageKey, CorrectCodec.encode(defaultShape))
+
+      expect(localStorage.getItem(localStorageKey)).toEqual(
+        CorrectCodec.encode(defaultShape),
+      )
+
+      store.shape.removeValue()
+
+      expect(localStorage.getItem(localStorageKey)).toBeNull()
+    })
+
+    it("should be idempotent", () => {
+      const store = createLocalStorage({
+        [localStorageKey]: CorrectCodec,
+      })
+
+      localStorage.setItem(localStorageKey, CorrectCodec.encode(defaultShape))
+
+      expect(localStorage.getItem(localStorageKey)).toEqual(
+        CorrectCodec.encode(defaultShape),
+      )
+
+      store.shape.removeValue()
+
+      store.shape.removeValue()
+
+      expect(localStorage.getItem(localStorageKey)).toBeNull()
+    })
+
+    it("act on memory store when useMemorySore=true", () => {
+      const store = createLocalStorage(
+        {
+          [localStorageKey]: CorrectCodec,
+        },
+        { useMemorySore: true },
+      )
+
+      store.shape.setValue(defaultShape)
+
+      store.shape.removeValue()
+
+      expect(store.shape.getValue()).toEqual(LV.absent)
+    })
   })
 })

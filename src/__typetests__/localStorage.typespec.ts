@@ -1,7 +1,12 @@
 import * as t from "io-ts"
 import { DateFromISOString } from "io-ts-types"
 import { fromIoTsCodec } from "../io-ts"
-import { getLocalValue, removeLocalValue, setLocalValue } from "../localStorage"
+import {
+  createLocalStorage,
+  getLocalValue,
+  removeLocalValue,
+  setLocalValue,
+} from "../localStorage"
 
 const ShapeCodec = t.type({ s: t.string, d: DateFromISOString })
 type ShapeCodec = t.TypeOf<typeof ShapeCodec>
@@ -62,3 +67,35 @@ removeLocalValue("shape", {
   // @dts-jest:fail:snap You cannot pass an invalid set of options
   useMemorySore: "false",
 })
+
+const store = createLocalStorage({
+  // @dts-jest:pass:snap It works with string encoding
+  foo: CorrectCodec,
+})
+
+createLocalStorage({
+  // @dts-jest:fail:snap It doesn't work with non-string encoding
+  foo: ShapeCodec,
+})
+
+const storeWithOptions = createLocalStorage(
+  {
+    foo: CorrectCodec,
+  },
+  // @dts-jest:pass:snap You can pass a valid set of options to store
+  { useMemorySore: true, defaultValues: { foo: defaultShape } },
+)
+
+createLocalStorage(
+  {
+    foo: CorrectCodec,
+  },
+  // @dts-jest:fail:snap You cannot pass an invalid set of options to store
+  { useMemorySore: true, defaultValues: { fo: defaultShape } },
+)
+
+// @dts-jest:pass:snap store returns the correct type encoding
+store
+
+// @dts-jest:pass:snap storeWithOptions returns the correct type encoding
+storeWithOptions

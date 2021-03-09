@@ -43,8 +43,8 @@ exports[`You cannot pass an invalid set of options (type) should match snapshot 
 exports[`You cannot pass an invalid set of options (type) should match snapshot 3`] = `"Type 'string' is not assignable to type 'boolean'."`;
 
 exports[`You cannot pass an invalid set of options to store (type) should match snapshot 1`] = `
-"Type '{ fo: { s: string; d: Date; }; }' is not assignable to type '{ foo: { s: string; d: Date; }; }'.
-  Object literal may only specify known properties, and 'fo' does not exist in type '{ foo: { s: string; d: Date; }; }'."
+"Type '{ fo: { s: string; d: Date; }; }' is not assignable to type 'Partial<{ foo: { s: string; d: Date; }; }>'.
+  Object literal may only specify known properties, and 'fo' does not exist in type 'Partial<{ foo: { s: string; d: Date; }; }>'."
 `;
 
 exports[`store returns the correct type encoding (type) should match snapshot 1`] = `"{ foo: { getValue: () => LocalValue<Errors, { s: string; d: Date; }>; setValue: (v: { s: string; d: Date; }) => void; removeValue: () => void; }; }"`;

@@ -78,7 +78,7 @@ export type RuntimeValues<S> = S extends StorageDef<infer K>
 
 const storageOptionsToValueOptions = <
   K extends string,
-  SO extends LocalStorageOptions<Record<K, any>> | undefined
+  SO extends LocalStorageOptions<Partial<Record<K, any>>> | undefined
 >(
   k: K,
   so: SO,
@@ -88,14 +88,14 @@ const storageOptionsToValueOptions = <
     so?.defaultValues === undefined
       ? undefined
       : pipe(
-          R.lookup(k, so.defaultValues),
+          R.lookup(k, so.defaultValues as Record<K, any>),
           O.getOrElse(() => undefined),
         ),
 })
 
 export const createLocalStorage = <S extends StorageDef<any>>(
   storage: S,
-  o?: LocalStorageOptions<RuntimeValues<S>>,
+  o?: LocalStorageOptions<Partial<RuntimeValues<S>>>,
 ): StorageInstance<S> => {
   return pipe(
     storage,

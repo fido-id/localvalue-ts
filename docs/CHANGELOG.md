@@ -1,3 +1,10 @@
+# [1.1.0-beta.3](https://github.com/fido-id/localvalue-ts/compare/v1.1.0-beta.2...v1.1.0-beta.3) (2021-03-09)
+
+
+### Features
+
+* add husky ([0224f1a](https://github.com/fido-id/localvalue-ts/commit/0224f1a2bfc3a3342bc8ff65884867fba2860874))
+
 # [1.1.0-beta.2](https://github.com/fido-id/localvalue-ts/compare/v1.1.0-beta.1...v1.1.0-beta.2) (2021-03-09)
 
 

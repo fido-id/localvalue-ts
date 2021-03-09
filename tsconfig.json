@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "moduleResolution": "Node",
+    "target": "es5",
+    "lib": ["esnext", "dom"],
+    "outDir": "./dist",
+    "jsx": "react",
+    "esModuleInterop": true
+  },
+  "include": ["./src"],
+  "exclude": ["./src/__typetests__", "./src/__tests__"]
+}

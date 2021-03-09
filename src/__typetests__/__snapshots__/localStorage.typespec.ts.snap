@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`It doesn't work with non-string encoding (type) should match snapshot 1`] = `
+"Argument of type 'TypeC<{ s: StringC; d: DateFromISOStringC; }>' is not assignable to parameter of type 'Codec<unknown, string, { s: string; d: Date; }>'.
+  The types returned by 'encode(...)' are incompatible between these types.
+    Type '{ s: string; d: string; }' is not assignable to type 'string'."
+`;
+
+exports[`It doesn't work with non-string encoding (type) should match snapshot 2`] = `"Argument of type 'TypeC<{ s: StringC; d: DateFromISOStringC; }>' is not assignable to parameter of type 'Codec<unknown, string, { s: string; d: Date; }>'."`;
+
+exports[`It works with any string (type) should match snapshot 1`] = `"void"`;
+
+exports[`It works with string encoding (type) should match snapshot 1`] = `"LocalValue<Errors, { s: string; d: Date; }>"`;
+
+exports[`It works with string encoding (type) should match snapshot 2`] = `"void"`;
+
+exports[`You can pass a valid set of options (type) should match snapshot 1`] = `"LocalValue<Errors, { s: string; d: Date; }>"`;
+
+exports[`You can pass a valid set of options (type) should match snapshot 2`] = `"void"`;
+
+exports[`You can pass a valid set of options (type) should match snapshot 3`] = `"void"`;
+
+exports[`You cannot pass an invalid set of options (type) should match snapshot 1`] = `
+"Type '{ foo: number; }' is not assignable to type '{ s: string; d: Date; }'.
+  Object literal may only specify known properties, and 'foo' does not exist in type '{ s: string; d: Date; }'."
+`;
+
+exports[`You cannot pass an invalid set of options (type) should match snapshot 2`] = `
+"Type '{ foo: number; }' is not assignable to type '{ s: string; d: Date; }'.
+  Object literal may only specify known properties, and 'foo' does not exist in type '{ s: string; d: Date; }'."
+`;
+
+exports[`You cannot pass an invalid set of options (type) should match snapshot 3`] = `"Type 'string' is not assignable to type 'boolean'."`;

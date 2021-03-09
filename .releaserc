@@ -1,0 +1,36 @@
+{
+  "repositoryUrl": "git@github.com:fido-id/react-localstorage-ts.git",
+  "branches": [
+    {"name": "master"},
+    {"name": "alpha", "channel": "alpha", "prerelease": true},
+    {"name": "beta", "channel": "beta", "prerelease": true}
+  ],
+  "plugins": [
+    ["@semantic-release/commit-analyzer", {
+      "preset": "angular",
+      "releaseRules": [
+        {"type": "docs", "scope":"readme", "release": "patch"},
+        {"type": "refactor", "release": "patch"},
+        {"type": "chore", "release": "patch"},
+        {"type": "style", "release": "patch"}
+      ],
+      "parserOpts": {
+        "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES"]
+      }
+    }],
+    "@semantic-release/release-notes-generator",
+    [
+      "@semantic-release/changelog",
+      {
+        "changelogFile": "docs/CHANGELOG.md"
+      }
+    ],
+    ["@semantic-release/npm", {
+      "pkgRoot": "./dist"
+    }],
+    ["@semantic-release/git", {
+      "assets": ["docs", "package.json"],
+      "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+    }]
+  ]
+}

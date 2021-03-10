@@ -1,3 +1,10 @@
+# [1.1.0-beta.7](https://github.com/fido-id/localvalue-ts/compare/v1.1.0-beta.6...v1.1.0-beta.7) (2021-03-10)
+
+
+### Features
+
+* export local-value-modifiers type contructor ([4760c63](https://github.com/fido-id/localvalue-ts/commit/4760c63f6a81f5c3f82e71e9c08554119c52a457))
+
 # [1.1.0-beta.6](https://github.com/fido-id/localvalue-ts/compare/v1.1.0-beta.5...v1.1.0-beta.6) (2021-03-10)
 
 

@@ -62,7 +62,7 @@ export type StorageDef<K extends string> = {
   [k in K]: Codec<any, string, any>
 }
 
-type StorageInstance<S> = S extends StorageDef<infer K>
+export type StorageInstance<S> = S extends StorageDef<infer K>
   ? {
       [k in K]: {
         getValue: () => LocalValue<errorType<S[k]>, runtimeType<S[k]>>

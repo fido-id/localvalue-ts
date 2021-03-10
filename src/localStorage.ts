@@ -62,13 +62,15 @@ export type StorageDef<K extends string> = {
   [k in K]: Codec<any, string, any>
 }
 
+export type LocalValueModifiers<K> = {
+  getValue: () => LocalValue<errorType<K>, runtimeType<K>>
+  setValue: (v: runtimeType<K>) => void
+  removeValue: () => void
+}
+
 export type StorageInstance<S> = S extends StorageDef<infer K>
   ? {
-      [k in K]: {
-        getValue: () => LocalValue<errorType<S[k]>, runtimeType<S[k]>>
-        setValue: (v: runtimeType<S[k]>) => void
-        removeValue: () => void
-      }
+      [k in K]: LocalValueModifiers<S[k]>
     }
   : never
 

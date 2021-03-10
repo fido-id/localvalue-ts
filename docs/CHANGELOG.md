@@ -1,3 +1,10 @@
+# [1.1.0-beta.6](https://github.com/fido-id/localvalue-ts/compare/v1.1.0-beta.5...v1.1.0-beta.6) (2021-03-10)
+
+
+### Features
+
+* export storage-instance type contructor ([db01e31](https://github.com/fido-id/localvalue-ts/commit/db01e3142f2e1933a16399c15f4015a745bf8c9e))
+
 # [1.1.0-beta.5](https://github.com/fido-id/localvalue-ts/compare/v1.1.0-beta.4...v1.1.0-beta.5) (2021-03-09)
 
 

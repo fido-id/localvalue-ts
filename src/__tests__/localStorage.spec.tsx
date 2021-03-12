@@ -56,7 +56,7 @@ afterEach(() => {
 
 describe("setLocalElement", () => {
   it("should set values correctly", () => {
-    setLocalValue(localStorageKey, CorrectCodec, defaultShape)
+    setLocalValue(localStorageKey, CorrectCodec, defaultShape)()
 
     expect(localStorage.getItem(localStorageKey)).toBe(
       CorrectCodec.encode(defaultShape),
@@ -65,7 +65,7 @@ describe("setLocalElement", () => {
     setLocalValue(localStorageKey, CorrectCodec, {
       ...defaultShape,
       s: "baz",
-    })
+    })()
 
     expect(localStorage.getItem(localStorageKey)).toBe(
       CorrectCodec.encode({
@@ -78,7 +78,7 @@ describe("setLocalElement", () => {
   it("does not write on localStorage when useMemorySore=true", () => {
     setLocalValue(localStorageKey, CorrectCodec, defaultShape, {
       useMemorySore: true,
-    })
+    })()
 
     expect(localStorage.getItem(localStorageKey)).toBeNull()
   })
@@ -88,7 +88,7 @@ describe("getLocalElement", () => {
   it("should get values correctly", () => {
     localStorage.setItem(localStorageKey, CorrectCodec.encode(defaultShape))
 
-    expect(getLocalValue(localStorageKey, CorrectCodec)).toEqual(
+    expect(getLocalValue(localStorageKey, CorrectCodec)()).toEqual(
       LV.valid(defaultShape),
     )
   })
@@ -99,19 +99,19 @@ describe("getLocalElement", () => {
     expect(
       getLocalValue(localStorageKey, CorrectCodec, {
         defaultValue,
-      }),
+      })(),
     ).toEqual(LV.valid(defaultValue))
   })
 
   it("reads memory store when useMemoryStore=true", () => {
     setLocalValue(localStorageKey, CorrectCodec, defaultShape, {
       useMemorySore: true,
-    })
+    })()
 
     expect(
       getLocalValue(localStorageKey, CorrectCodec, {
         useMemorySore: true,
-      }),
+      })(),
     ).toEqual(LV.valid(defaultShape))
   })
 })
@@ -124,7 +124,7 @@ describe("removeLocalElement", () => {
       CorrectCodec.encode(defaultShape),
     )
 
-    removeLocalValue(localStorageKey)
+    removeLocalValue(localStorageKey)()
 
     expect(localStorage.getItem(localStorageKey)).toBeNull()
   })
@@ -136,9 +136,9 @@ describe("removeLocalElement", () => {
       CorrectCodec.encode(defaultShape),
     )
 
-    removeLocalValue(localStorageKey)
+    removeLocalValue(localStorageKey)()
 
-    removeLocalValue(localStorageKey)
+    removeLocalValue(localStorageKey)()
 
     expect(localStorage.getItem(localStorageKey)).toBeNull()
   })
@@ -146,14 +146,14 @@ describe("removeLocalElement", () => {
   it("acts on memory store when useMemorySore=true", () => {
     setLocalValue(localStorageKey, CorrectCodec, defaultShape, {
       useMemorySore: true,
-    })
+    })()
 
-    removeLocalValue(localStorageKey, { useMemorySore: true })
+    removeLocalValue(localStorageKey, { useMemorySore: true })()
 
     expect(
       getLocalValue(localStorageKey, CorrectCodec, {
         useMemorySore: true,
-      }),
+      })(),
     ).toEqual(LV.absent)
   })
 })
@@ -165,16 +165,16 @@ describe("createLocalStorage", () => {
 
   describe("setValues", () => {
     it("should set values correctly", () => {
-      store.shape.setValue(defaultShape)
+      store.shape.set(defaultShape)()
 
       expect(localStorage.getItem(localStorageKey)).toBe(
         CorrectCodec.encode(defaultShape),
       )
 
-      store.shape.setValue({
+      store.shape.set({
         ...defaultShape,
         s: "baz",
-      })
+      })()
 
       expect(localStorage.getItem(localStorageKey)).toBe(
         CorrectCodec.encode({
@@ -194,7 +194,7 @@ describe("createLocalStorage", () => {
         },
       )
 
-      store.shape.setValue(defaultShape)
+      store.shape.set(defaultShape)()
 
       expect(localStorage.getItem(localStorageKey)).toBeNull()
     })
@@ -208,7 +208,7 @@ describe("createLocalStorage", () => {
 
       localStorage.setItem(localStorageKey, CorrectCodec.encode(defaultShape))
 
-      expect(store.shape.getValue()).toEqual(LV.valid(defaultShape))
+      expect(store.shape.get()).toEqual(LV.valid(defaultShape))
     })
 
     it("returns default value when none is specified", () => {
@@ -219,7 +219,7 @@ describe("createLocalStorage", () => {
         },
         { defaultValues: { [localStorageKey]: defaultValue } },
       )
-      expect(store.shape.getValue()).toEqual(LV.valid(defaultValue))
+      expect(store.shape.get()).toEqual(LV.valid(defaultValue))
     })
 
     it("reads memory store when useMemoryStore=true", () => {
@@ -233,7 +233,7 @@ describe("createLocalStorage", () => {
         { useMemorySore: true },
       )
 
-      expect(store.shape.getValue()).toEqual(LV.valid(defaultShape))
+      expect(store.shape.get()).toEqual(LV.valid(defaultShape))
     })
   })
 
@@ -249,7 +249,7 @@ describe("createLocalStorage", () => {
         CorrectCodec.encode(defaultShape),
       )
 
-      store.shape.removeValue()
+      store.shape.remove()
 
       expect(localStorage.getItem(localStorageKey)).toBeNull()
     })
@@ -265,9 +265,9 @@ describe("createLocalStorage", () => {
         CorrectCodec.encode(defaultShape),
       )
 
-      store.shape.removeValue()
+      store.shape.remove()
 
-      store.shape.removeValue()
+      store.shape.remove()
 
       expect(localStorage.getItem(localStorageKey)).toBeNull()
     })
@@ -280,11 +280,11 @@ describe("createLocalStorage", () => {
         { useMemorySore: true },
       )
 
-      store.shape.setValue(defaultShape)
+      store.shape.set(defaultShape)
 
-      store.shape.removeValue()
+      store.shape.remove()
 
-      expect(store.shape.getValue()).toEqual(LV.absent)
+      expect(store.shape.get()).toEqual(LV.absent)
     })
   })
 })

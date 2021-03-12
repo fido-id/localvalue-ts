@@ -133,10 +133,10 @@ createLocalStorage(
 store
 
 // @dts-jest:pass:snap store returns the correct type encoding
-store.union.getValue()
+store.union.get()
 
 // @dts-jest:pass:snap storeWithOptions returns the correct type encoding
 storeWithOptions
 
 // @dts-jest:pass:snap storeWithOptions returns the correct type encoding
-storeWithOptions.union.getValue()
+storeWithOptions.union.get()

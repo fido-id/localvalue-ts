@@ -7,6 +7,15 @@ import { LocalValue } from "./LocalValue"
 import * as LV from "./LocalValue"
 
 // -------------------------------------------------------------------------------------
+// fp-ts data structures
+// -------------------------------------------------------------------------------------
+
+/** @internal */
+export interface IO<A> {
+  (): A
+}
+
+// -------------------------------------------------------------------------------------
 // localStorage
 // -------------------------------------------------------------------------------------
 
@@ -29,18 +38,20 @@ export const getLocalValue = <E, A>(
   t: string,
   codec: Codec<E, string, A>,
   options?: LocalValueOptions<A>,
-): LocalValue<E, A> => {
+): IO<LocalValue<E, A>> => {
   const store = getStore(options?.useMemorySore ?? false)
 
-  const storedValue = pipe(
-    O.fromNullable(store.getItem(t)),
-    LV.fromOption,
-    LV.chain((v) => codec.decode(v)),
-  )
+  return () => {
+    const storedValue = pipe(
+      O.fromNullable(store.getItem(t)),
+      LV.fromOption,
+      LV.chain((v) => codec.decode(v)),
+    )
 
-  return options?.defaultValue && !LV.isValid(storedValue)
-    ? (LV.valid(options.defaultValue) as LocalValue<E, A>)
-    : storedValue
+    return options?.defaultValue && !LV.isValid(storedValue)
+      ? (LV.valid(options.defaultValue) as LocalValue<E, A>)
+      : storedValue
+  }
 }
 
 export const setLocalValue = <E, A>(
@@ -48,18 +59,18 @@ export const setLocalValue = <E, A>(
   codec: Codec<E, string, A>,
   v: A,
   options?: LocalValueOptions<A>,
-): void => {
+): IO<void> => {
   const store = getStore(options?.useMemorySore ?? false)
 
-  store.setItem(t, codec.encode(v))
+  return () => store.setItem(t, codec.encode(v))
 }
 
 export const removeLocalValue = (
   t: string,
   options?: LocalValueOptions<any>,
-): void => {
+): IO<void> => {
   const store = getStore(options?.useMemorySore ?? false)
-  store.removeItem(t)
+  return () => store.removeItem(t)
 }
 
 export type StorageDef<K extends string> = {
@@ -67,9 +78,9 @@ export type StorageDef<K extends string> = {
 }
 
 export type LocalValueModifiers<K> = {
-  getValue: () => LocalValue<errorType<K>, runtimeType<K>>
-  setValue: (v: runtimeType<K>) => void
-  removeValue: () => void
+  get: IO<LocalValue<errorType<K>, runtimeType<K>>>
+  set: (v: runtimeType<K>) => IO<void>
+  remove: IO<void>
 }
 
 export type StorageInstance<S> = S extends StorageDef<infer K>
@@ -106,9 +117,9 @@ export const createLocalStorage = <S extends StorageDef<any>>(
   return pipe(
     storage,
     R.mapWithIndex((k, c) => ({
-      getValue: () => getLocalValue(k, c, storageOptionsToValueOptions(k, o)),
-      setValue: (v: any) => setLocalValue(k, c, v, o),
-      removeValue: () => removeLocalValue(k, o),
+      get: getLocalValue(k, c, storageOptionsToValueOptions(k, o)),
+      set: (v: any) => setLocalValue(k, c, v, o),
+      remove: removeLocalValue(k, o),
     })),
   ) as StorageInstance<S>
 }

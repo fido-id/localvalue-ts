@@ -14,19 +14,19 @@ exports[`It doesn't work with non-string encoding (type) should match snapshot 3
     Type '{ s: string; d: string; }' is not assignable to type 'string'."
 `;
 
-exports[`It works with any string (type) should match snapshot 1`] = `"void"`;
+exports[`It works with any string (type) should match snapshot 1`] = `"IO<void>"`;
 
-exports[`It works with string encoding (type) should match snapshot 1`] = `"LocalValue<Errors, { s: string; d: Date; }>"`;
+exports[`It works with string encoding (type) should match snapshot 1`] = `"IO<LocalValue<Errors, { s: string; d: Date; }>>"`;
 
-exports[`It works with string encoding (type) should match snapshot 2`] = `"void"`;
+exports[`It works with string encoding (type) should match snapshot 2`] = `"IO<void>"`;
 
 exports[`It works with string encoding (type) should match snapshot 3`] = `"Codec<Errors, string, { s: string; d: Date; }>"`;
 
-exports[`You can pass a valid set of options (type) should match snapshot 1`] = `"LocalValue<Errors, { s: string; d: Date; }>"`;
+exports[`You can pass a valid set of options (type) should match snapshot 1`] = `"IO<LocalValue<Errors, { s: string; d: Date; }>>"`;
 
-exports[`You can pass a valid set of options (type) should match snapshot 2`] = `"void"`;
+exports[`You can pass a valid set of options (type) should match snapshot 2`] = `"IO<void>"`;
 
-exports[`You can pass a valid set of options (type) should match snapshot 3`] = `"void"`;
+exports[`You can pass a valid set of options (type) should match snapshot 3`] = `"IO<void>"`;
 
 exports[`You can pass a valid set of options to store (type) should match snapshot 1`] = `"any"`;
 

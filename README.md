@@ -31,30 +31,41 @@ First create you codecs:
 ```tsx
 // codecs.ts
 import * as t from "io-ts"
-import { fromIoTsCodec } from "localvalue-ts/io-ts"
 
-const ThemeFlavourC = t.union([t.literal("dark"), t.literal("light")])
+export const ThemeFlavourCodec = {
+  decode: ...
+  encode: ...
+}
 
-export const ThemeFlavour = fromIoTsCodec(ThemeFlavourC)
+export const AuthTokenCodec = {
+  decode: ...
+  encode: ...
+}
 ```
 
 then you use them in your code:
 
 ```tsx
 // App.tsx
-import { ThemeFlavour } from "./codecs.ts"
-import { getLocalValue } from "localvalue-ts/localStorage"
+import { ThemeFlavourCodec, AuthTokenCodec } from "./codecs.ts"
+import { createLocalStorage } from "localvalue-ts/localStorage"
 import * as LV from "localvalue-ts/LocalValue"
 
+const localStorage = createLocalStorage(
+  {
+    themeFlavour: ThemeFlavourCodec,
+    authToken: AuthTokenCodec,
+  },
+  { defaultValues: { themeFlavour: "light" } },
+)
+
 const App = () => {
-  const myLocalValue = getLocalValue("themeFlavour", ThemeFlavour, {
-    defaultValue: "light",
-  })
+  const myLocalValue = localStorage.themeFlavour.getValue() // LocalValue<"light" | "dark">
 
   return pipe(
     theme,
+    // N.B. using fold2 because with default value we will never have to deal with missing data
     LV.fold2(
-      // N.B. using fold2 because with default value we will never have to deal with missing data
       () => {
         console.error("wrong value stored in localStorage!")
       },
@@ -108,6 +119,43 @@ and you can use it in the same way you usually use your usual `fp-ts` abstractio
 ## defining codecs
 
 Given that browsers only allow you to store serialized data in string format, the only accepted codecs are of the form `Codec<E, string, B>`, where `E` is the shape of the decoding error, `B` is the shape of the runtime error and `string` is the type resulting after encoding.
+
+If you use `io-ts` you can simply create a layer to convert `io-ts` codecs to `Codec` compliant instances:
+
+```ts
+import { pipe } from "fp-ts/lib/function"
+import * as t from "io-ts"
+import * as E from "fp-ts/Either"
+import { Json, JsonFromString } from "io-ts-types"
+import * as LV from "./LocalValue"
+import { Codec } from "./Codec"
+
+const adaptIoTsCodec = <A, B>(C: t.Type<B, A>): Codec<t.Errors, A, B> => {
+  return {
+    encode: C.encode,
+    decode: (u: unknown) => LV.fromEither(C.decode(u)),
+  }
+}
+
+export const fromIoTsCodec = <A, B extends Json>(C: t.Type<A, B>) => {
+  const stringCodec = new t.Type<A, string>(
+    C.name,
+    C.is,
+    (u, c) => {
+      return pipe(
+        t.string.validate(u, c),
+        E.chain((jsonString) => JsonFromString.validate(jsonString, c)),
+        E.chain((json) => C.validate(json, c)),
+      )
+    },
+    (v) => {
+      return pipe(v, C.encode, JsonFromString.encode)
+    },
+  )
+
+  return adaptIoTsCodec(stringCodec)
+}
+```
 
 ## contributing
 

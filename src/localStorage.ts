@@ -10,8 +10,7 @@ import * as LV from "./LocalValue"
 // fp-ts data structures
 // -------------------------------------------------------------------------------------
 
-/** @internal */
-export interface IO<A> {
+interface IO<A> {
   (): A
 }
 

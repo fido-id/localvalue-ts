@@ -14,34 +14,28 @@ import { Monoid } from "fp-ts/Monoid"
 // fp-ts data structures
 // -------------------------------------------------------------------------------------
 
-/** @internal */
-export interface Left<E> {
+interface Left<E> {
   readonly _tag: "Left"
   readonly left: E
 }
 
-/** @internal */
-export interface Right<A> {
+interface Right<A> {
   readonly _tag: "Right"
   readonly right: A
 }
 
-/** @internal */
-export declare type Either<E, A> = Left<E> | Right<A>
+declare type Either<E, A> = Left<E> | Right<A>
 
-/** @internal */
-export interface None {
+interface None {
   readonly _tag: "None"
 }
 
-/** @internal */
-export interface Some<A> {
+interface Some<A> {
   readonly _tag: "Some"
   readonly value: A
 }
 
-/** @internal */
-export type Option<A> = None | Some<A>
+type Option<A> = None | Some<A>
 
 // -------------------------------------------------------------------------------------
 // local-value

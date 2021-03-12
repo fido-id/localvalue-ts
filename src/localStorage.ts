@@ -6,6 +6,10 @@ import { Codec, errorType, runtimeType } from "./Codec"
 import { LocalValue } from "./LocalValue"
 import * as LV from "./LocalValue"
 
+// -------------------------------------------------------------------------------------
+// localStorage
+// -------------------------------------------------------------------------------------
+
 const memoryStore = new MemoryStorageProxy()
 
 export interface LocalStorageOptions<A> {

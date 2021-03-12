@@ -38,6 +38,7 @@ const createLocalStorageChangedEvent = (
   return new CustomEvent(storeChangedCustomEvent, { detail: { key } })
 }
 
+/** @internal */
 export const isLocalStorageEvent = (e: any): e is LocalStorageChangedEvent => {
   return typeof e?.detail?.key === "string"
 }
@@ -51,6 +52,7 @@ interface IProxyStorage {
   removeItem(key: string): void
 }
 
+/** @internal */
 export class LocalStorageProxy implements IProxyStorage {
   getItem(key: string): string | null {
     return localStorage.getItem(key)
@@ -67,6 +69,7 @@ export class LocalStorageProxy implements IProxyStorage {
   }
 }
 
+/** @internal */
 export class MemoryStorageProxy implements IProxyStorage {
   private _memoryStorage = new Map<string, string>()
 
@@ -85,6 +88,7 @@ export class MemoryStorageProxy implements IProxyStorage {
   }
 }
 
+/** @internal */
 export const localStorageProxy: IProxyStorage = localStorageAvailable()
   ? new LocalStorageProxy()
   : new MemoryStorageProxy()

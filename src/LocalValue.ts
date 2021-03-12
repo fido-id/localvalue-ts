@@ -9,8 +9,43 @@ import { Alternative2 } from "fp-ts/Alternative"
 import { Applicative2 } from "fp-ts/Applicative"
 import { Foldable2 } from "fp-ts/Foldable"
 import { Monoid } from "fp-ts/Monoid"
-import { Either } from "./Either"
-import { Option } from "./Option"
+
+// -------------------------------------------------------------------------------------
+// fp-ts data structures
+// -------------------------------------------------------------------------------------
+
+/** @internal */
+export interface Left<E> {
+  readonly _tag: "Left"
+  readonly left: E
+}
+
+/** @internal */
+export interface Right<A> {
+  readonly _tag: "Right"
+  readonly right: A
+}
+
+/** @internal */
+export declare type Either<E, A> = Left<E> | Right<A>
+
+/** @internal */
+export interface None {
+  readonly _tag: "None"
+}
+
+/** @internal */
+export interface Some<A> {
+  readonly _tag: "Some"
+  readonly value: A
+}
+
+/** @internal */
+export type Option<A> = None | Some<A>
+
+// -------------------------------------------------------------------------------------
+// local-value
+// -------------------------------------------------------------------------------------
 
 export interface Absent {
   readonly _tag: "Absent"

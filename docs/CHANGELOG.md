@@ -1,3 +1,25 @@
+# [2.0.0-beta.1](https://github.com/fido-id/localvalue-ts/compare/v1.1.0-beta.7...v2.0.0-beta.1) (2021-03-12)
+
+
+* refactor!: return io instead of void ([13afcf7](https://github.com/fido-id/localvalue-ts/commit/13afcf70d59bf23401568a09c9b1077319c2a1a1))
+
+
+### Code Refactoring
+
+* remove from-io-ts-codec util ([9113f95](https://github.com/fido-id/localvalue-ts/commit/9113f959376301b4be3ca9245fd3ae675dc24755))
+
+
+### Features
+
+* remove internal apis from d.ts ([dcbaa13](https://github.com/fido-id/localvalue-ts/commit/dcbaa13a5f22d8c23e800096e52254fdab5d6b1f))
+
+
+### BREAKING CHANGES
+
+* all LocalValueModifiers as well as other value
+manipulation utils now return `IO<void>` instead of void
+* removed fromIoTsCodec util
+
 # [1.1.0-beta.7](https://github.com/fido-id/localvalue-ts/compare/v1.1.0-beta.6...v1.1.0-beta.7) (2021-03-10)
 
 

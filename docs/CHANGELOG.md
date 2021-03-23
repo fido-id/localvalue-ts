@@ -1,3 +1,35 @@
+# [2.0.0](https://github.com/fido-id/localvalue-ts/compare/v1.0.0...v2.0.0) (2021-03-23)
+
+
+* refactor!: return io instead of void ([13afcf7](https://github.com/fido-id/localvalue-ts/commit/13afcf70d59bf23401568a09c9b1077319c2a1a1))
+
+
+### Bug Fixes
+
+* return type of storage-instance type constructor ([536c332](https://github.com/fido-id/localvalue-ts/commit/536c33215dfd9ffb5429d592ddc16821520052ad))
+
+
+### Code Refactoring
+
+* remove from-io-ts-codec util ([9113f95](https://github.com/fido-id/localvalue-ts/commit/9113f959376301b4be3ca9245fd3ae675dc24755))
+
+
+### Features
+
+* add create-store util ([de9cff9](https://github.com/fido-id/localvalue-ts/commit/de9cff97079d3f7483ddadda6f8cb4e585c8b013))
+* add husky ([0224f1a](https://github.com/fido-id/localvalue-ts/commit/0224f1a2bfc3a3342bc8ff65884867fba2860874))
+* export local-value-modifiers type contructor ([4760c63](https://github.com/fido-id/localvalue-ts/commit/4760c63f6a81f5c3f82e71e9c08554119c52a457))
+* export storage-instance type contructor ([db01e31](https://github.com/fido-id/localvalue-ts/commit/db01e3142f2e1933a16399c15f4015a745bf8c9e))
+* export usefult type constructors ([135f708](https://github.com/fido-id/localvalue-ts/commit/135f708c0ebcc5f43434550cf3134493eb8143f5))
+* remove internal apis from d.ts ([dcbaa13](https://github.com/fido-id/localvalue-ts/commit/dcbaa13a5f22d8c23e800096e52254fdab5d6b1f))
+
+
+### BREAKING CHANGES
+
+* all LocalValueModifiers as well as other value
+manipulation utils now return `IO<void>` instead of void
+* removed fromIoTsCodec util
+
 # [2.0.0-beta.2](https://github.com/fido-id/localvalue-ts/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2021-03-12)
 
 # [2.0.0-beta.1](https://github.com/fido-id/localvalue-ts/compare/v1.1.0-beta.7...v2.0.0-beta.1) (2021-03-12)

@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/fido-id/localvalue-ts/compare/v2.0.0...v2.1.0) (2021-04-09)
+
+
+### Features
+
+* add get-or-else-w ([7c229f3](https://github.com/fido-id/localvalue-ts/commit/7c229f35a84802b772e6cf433d8071d6f0be24aa))
+
 # [2.0.0](https://github.com/fido-id/localvalue-ts/compare/v1.0.0...v2.0.0) (2021-03-23)
 
 

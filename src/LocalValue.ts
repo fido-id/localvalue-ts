@@ -67,6 +67,7 @@ declare module "fp-ts/HKT" {
 
 interface OptionalGetter<F extends URIS2> {
   readonly getOrElse: <E, A>(f: Lazy<A>) => (fa: Kind2<F, E, A>) => A
+  readonly getOrElseW: <E, A, B>(f: Lazy<B>) => (fa: Kind2<F, E, A>) => A | B
 }
 
 // -------------------------------------------------------------------------------------
@@ -189,6 +190,16 @@ export const getOrElse = <E, A>(defaultValue: Lazy<A>) => (
   return lv.value
 }
 
+export const getOrElseW = <E, A, B>(defaultValue: Lazy<B>) => (
+  lv: LocalValue<E, A>,
+): A | B => {
+  if (isAbsent(lv) || isInvalid(lv)) {
+    return defaultValue()
+  }
+
+  return lv.value
+}
+
 export const of = <A, E = never>(v: A): LocalValue<E, A> => valid(v)
 
 export const chain = <E, A, B>(f: (a: A) => LocalValue<E, B>) => (
@@ -277,6 +288,7 @@ export const localValue: Functor2<URI> &
   map: _map,
   chain: _chain,
   getOrElse,
+  getOrElseW,
   of,
   ap: _ap,
   zero: _zero,

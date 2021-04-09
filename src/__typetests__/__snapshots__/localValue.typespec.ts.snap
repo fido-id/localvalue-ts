@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getOrElse does not let you widen the type (type) should match snapshot 1`] = `
+"Argument of type '(lv: LocalValue<Errors, void>) => A' is not assignable to parameter of type '(b: LocalValue<Errors, { sameID: string; }>) => void'.
+  Types of parameters 'lv' and 'b' are incompatible.
+    Type 'LocalValue<Errors, { sameID: string; }>' is not assignable to type 'LocalValue<Errors, void>'.
+      Type 'Valid<{ sameID: string; }>' is not assignable to type 'LocalValue<Errors, void>'.
+        Type 'Valid<{ sameID: string; }>' is not assignable to type 'Valid<void>'.
+          Type '{ sameID: string; }' is not assignable to type 'void'."
+`;
+
+exports[`getOrElseW lets you widen the type (type) should match snapshot 1`] = `"void | { sameID: string; }"`;

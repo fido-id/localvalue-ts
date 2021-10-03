@@ -153,7 +153,7 @@ const _reduceRight = <E, A, B>(
 /**
  * fold none/error/value state and return a value accordingly none in case of absent, error in case of invalid value otherwise
  *
- * @category constructors
+ * @category Destructors
  */
 export const fold = <E, A, B>(
   onNone: () => B,
@@ -173,7 +173,7 @@ export const fold = <E, A, B>(
 /**
  * fold none/error/value state and return a value accordingly. Error in case of invalid or absent value otherwise
  *
- * @category constructors
+ * @category Destructors
  */
 export const fold2 = <E, A, B>(
   onNotValid: (e?: E) => B,
@@ -193,7 +193,7 @@ export const fold2 = <E, A, B>(
 /**
  * Extracts the value out of the structure, if it exists. Otherwise returns the given default value
  *
- * @category destructors
+ * @category Destructors
  */
 export const getOrElse = <E, A>(defaultValue: Lazy<A>) => (
   lv: LocalValue<E, A>,
@@ -208,7 +208,7 @@ export const getOrElse = <E, A>(defaultValue: Lazy<A>) => (
 /**
  * Return the value if is found and valid or a default value allow for different type in the default value
  *
- * @category destructors
+ * @category Destructors
  */
 export const getOrElseW = <E, A, B>(defaultValue: Lazy<B>) => (
   lv: LocalValue<E, A>,
@@ -257,9 +257,9 @@ export const fromOption = <A>(o: Option<A>): LocalValue<never, A> =>
   )
 
 /**
- * Transforms an Either to an LocalValue discarding the error.
+ * Transforms an Either to a LocalValue wrapping error into an invalid.
  *
- * @category constructors
+ * @category Constructors
  */
 export const fromEither = <E, A>(e: Either<E, A>): LocalValue<E, A> =>
   pipe(

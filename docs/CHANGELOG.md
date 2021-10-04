@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/fido-id/localvalue-ts/compare/v2.1.0...v2.1.1) (2021-10-04)
+
+
+### Bug Fixes
+
+* incorrect classification and docs ([c742cfc](https://github.com/fido-id/localvalue-ts/commit/c742cfc6fb6f63c3c26341db7cb8d53219655dfa))
+
 # [2.1.0](https://github.com/fido-id/localvalue-ts/compare/v2.0.0...v2.1.0) (2021-04-09)
 
 

@@ -150,6 +150,11 @@ const _reduceRight = <E, A, B>(
 // pipeables
 // -------------------------------------------------------------------------------------
 
+/**
+ * fold none/error/value state and return a value accordingly none in case of absent, error in case of invalid value otherwise
+ *
+ * @category Destructors
+ */
 export const fold = <E, A, B>(
   onNone: () => B,
   onError: (e: E) => B,
@@ -165,6 +170,11 @@ export const fold = <E, A, B>(
   return onValue(fa.value)
 }
 
+/**
+ * fold none/error/value state and return a value accordingly. Error in case of invalid or absent value otherwise
+ *
+ * @category Destructors
+ */
 export const fold2 = <E, A, B>(
   onNotValid: (e?: E) => B,
   onValid: (a: A) => B,
@@ -180,6 +190,11 @@ export const fold2 = <E, A, B>(
   return onValid(fa.value)
 }
 
+/**
+ * Extracts the value out of the structure, if it exists. Otherwise returns the given default value
+ *
+ * @category Destructors
+ */
 export const getOrElse = <E, A>(defaultValue: Lazy<A>) => (
   lv: LocalValue<E, A>,
 ): A => {
@@ -190,6 +205,11 @@ export const getOrElse = <E, A>(defaultValue: Lazy<A>) => (
   return lv.value
 }
 
+/**
+ * Return the value if is found and valid or a default value allow for different type in the default value
+ *
+ * @category Destructors
+ */
 export const getOrElseW = <E, A, B>(defaultValue: Lazy<B>) => (
   lv: LocalValue<E, A>,
 ): A | B => {
@@ -200,6 +220,11 @@ export const getOrElseW = <E, A, B>(defaultValue: Lazy<B>) => (
   return lv.value
 }
 
+/**
+ * Wrap a value into the type constructor.
+ *
+ * @category Applicative
+ */
 export const of = <A, E = never>(v: A): LocalValue<E, A> => valid(v)
 
 export const chain = <E, A, B>(f: (a: A) => LocalValue<E, B>) => (
@@ -208,12 +233,20 @@ export const chain = <E, A, B>(f: (a: A) => LocalValue<E, B>) => (
   return _chain(lv, f)
 }
 
+/**
+ * @category Functor
+ */
 export const map = <E, A, B>(f: (a: A) => B) => (
   lv: LocalValue<E, A>,
 ): LocalValue<E, B> => {
   return _map(lv, f)
 }
 
+/**
+ * Map none into absent and some into valid
+ *
+ * @category Functor
+ */
 export const fromOption = <A>(o: Option<A>): LocalValue<never, A> =>
   pipe(
     o,
@@ -223,6 +256,11 @@ export const fromOption = <A>(o: Option<A>): LocalValue<never, A> =>
     ),
   )
 
+/**
+ * Transforms an Either to a LocalValue wrapping error into an invalid.
+ *
+ * @category Constructors
+ */
 export const fromEither = <E, A>(e: Either<E, A>): LocalValue<E, A> =>
   pipe(
     e,
@@ -248,6 +286,9 @@ export const toEither = <E, A>(onNone: Lazy<E>) => (
   )
 }
 
+/**
+ * @category Alt
+ */
 export const alt = <E, A>(la: Lazy<LocalValue<E, A>>) => (
   lv: LocalValue<E, A>,
 ) => {

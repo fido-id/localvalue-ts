@@ -30,6 +30,7 @@
     "@semantic-release/npm": "^7.0.10",
     "@semantic-release/release-notes-generator": "^9.0.1",
     "@types/jest": "^26.0.20",
+    "cz-conventional-changelog": "3.3.0",
     "dts-jest": "^23.3.0",
     "husky": "^5.1.1",
     "io-ts-types": "^0.5.15",
@@ -60,7 +61,8 @@
     "release-dry": "yarn build && semantic-release -d --no-ci --debug",
     "test": "yarn test:type && yarn test:runtime",
     "test:runtime": "jest --config=jest.config.js --passWithNoTests",
-    "test:type": "jest --config=jest.typetests-config.js --passWithNoTests"
+    "test:type": "jest --config=jest.typetests-config.js --passWithNoTests",
+    "commit": "cz"
   },
   "lint-staged": {
     "src/*.{ts,tsx,js,jsx}": [
@@ -69,5 +71,10 @@
     "src/*.{json,md}": [
       "prettier --write"
     ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

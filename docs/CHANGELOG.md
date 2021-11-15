@@ -1,3 +1,11 @@
+# [2.2.0](https://github.com/fido-id/localvalue-ts/compare/v2.1.1...v2.2.0) (2021-11-15)
+
+
+### Features
+
+* **source-control:** add a poc of commitizen ([67d29e3](https://github.com/fido-id/localvalue-ts/commit/67d29e3ce99c624e023fc4522729bc8454dd63ff))
+* **source-control:** add commitizen ([#12](https://github.com/fido-id/localvalue-ts/issues/12)) ([f65c224](https://github.com/fido-id/localvalue-ts/commit/f65c2241614aa0b91509a8e4435209217a670a1b))
+
 ## [2.1.1](https://github.com/fido-id/localvalue-ts/compare/v2.1.0...v2.1.1) (2021-10-04)
 
 

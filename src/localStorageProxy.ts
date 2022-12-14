@@ -2,7 +2,7 @@ export const storeChangedCustomEvent = "storeChangedCustomEvent"
 
 export function localStorageAvailable(): boolean {
   try {
-    const x = "@rehooks/local-storage:" + new Date().toISOString()
+    const x = "react-local-storage-test:" + new Date().toISOString()
     localStorage.setItem(x, x)
     localStorage.removeItem(x)
     return true

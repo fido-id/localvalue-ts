@@ -1,3 +1,5 @@
+## [2.2.1](https://github.com/fido-id/localvalue-ts/compare/v2.2.0...v2.2.1) (2022-12-14)
+
 # [2.2.0](https://github.com/fido-id/localvalue-ts/compare/v2.1.1...v2.2.0) (2021-11-15)
 
 
